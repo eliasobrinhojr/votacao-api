@@ -4,13 +4,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/db-coop
     username: root
-    password:
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    sql:
-      init:
-        mode: always
-      jpa:
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-        show-sql: true
-    session:
-      duration: 60
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  session:
+    duration: 60

@@ -18,7 +18,7 @@ create table if not exists cooperativa.pauta (
 create table if not exists cooperativa.sessao (
     id SERIAL primary key,
     pauta_id INTEGER not null,
-    duracao INTEGER not null,
+    duration INTEGER not null,
     data_create TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     constraint fk_pauta foreign key(pauta_id) references cooperativa.pauta(id)
 );
