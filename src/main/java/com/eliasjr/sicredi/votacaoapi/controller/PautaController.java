@@ -1,9 +1,8 @@
 package com.eliasjr.sicredi.votacaoapi.controller;
 
 import com.eliasjr.sicredi.votacaoapi.controller.request.PautaRequest;
-import com.eliasjr.sicredi.votacaoapi.controller.dto.PautaContabilizacaoDTO;
+import com.eliasjr.sicredi.votacaoapi.controller.response.PautaContabilizacaoResponse;
 import com.eliasjr.sicredi.votacaoapi.controller.response.PautaResponse;
-import com.eliasjr.sicredi.votacaoapi.entity.Pauta;
 import com.eliasjr.sicredi.votacaoapi.service.PautaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ public class PautaController {
     }
 
     @GetMapping("/count/{id}")
-    public ResponseEntity<PautaContabilizacaoDTO> count(@PathVariable("id") Long id) {
+    public ResponseEntity<PautaContabilizacaoResponse> count(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(pautaService.accounting(id));
     }
 

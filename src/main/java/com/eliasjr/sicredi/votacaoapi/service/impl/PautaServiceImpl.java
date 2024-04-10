@@ -1,6 +1,6 @@
 package com.eliasjr.sicredi.votacaoapi.service.impl;
 
-import com.eliasjr.sicredi.votacaoapi.controller.dto.PautaContabilizacaoDTO;
+import com.eliasjr.sicredi.votacaoapi.controller.response.PautaContabilizacaoResponse;
 import com.eliasjr.sicredi.votacaoapi.controller.request.PautaRequest;
 import com.eliasjr.sicredi.votacaoapi.controller.response.PautaResponse;
 import com.eliasjr.sicredi.votacaoapi.entity.Pauta;
@@ -39,7 +39,7 @@ public class PautaServiceImpl implements PautaService {
     }
 
     @Override
-    public PautaContabilizacaoDTO accounting(Long id) {
+    public PautaContabilizacaoResponse accounting(Long id) {
         Pauta pauta = findById(id);
 
         Long pros = pautaRepository.countByIdAndVote(id, true);
@@ -48,7 +48,7 @@ public class PautaServiceImpl implements PautaService {
         pauta.setResultado(pros > contras ? "SIM" : "NÃO");
         Pauta pautaAtualizada = pautaRepository.save(pauta);
 
-        return PautaContabilizacaoDTO.builder()
+        return PautaContabilizacaoResponse.builder()
                 .id(pautaAtualizada.getId())
                 .titulo(pautaAtualizada.getTitulo())
                 .descricao(pautaAtualizada.getDescricao())

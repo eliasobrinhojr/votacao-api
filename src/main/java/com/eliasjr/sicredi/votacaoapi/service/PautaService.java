@@ -1,7 +1,7 @@
 package com.eliasjr.sicredi.votacaoapi.service;
 
 import com.eliasjr.sicredi.votacaoapi.controller.request.PautaRequest;
-import com.eliasjr.sicredi.votacaoapi.controller.dto.PautaContabilizacaoDTO;
+import com.eliasjr.sicredi.votacaoapi.controller.response.PautaContabilizacaoResponse;
 import com.eliasjr.sicredi.votacaoapi.controller.response.PautaResponse;
 import com.eliasjr.sicredi.votacaoapi.entity.Pauta;
 
@@ -13,7 +13,7 @@ public interface PautaService {
 
     Pauta findById(Long id);
 
-    PautaContabilizacaoDTO accounting(Long id);
+    PautaContabilizacaoResponse accounting(Long id);
 
     List<PautaResponse> list(Long id, String titulo, String descricao);
 }
