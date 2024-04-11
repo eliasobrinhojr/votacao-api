@@ -21,3 +21,6 @@ precisa ter instalado docker, kafka, zookeeper, intelijj na maquina.
 - Execute aplicação através do IntelliJ e certifique-se de que o Maven esteja instalado no seu sistema navegue até o diretório raiz do seu projeto onde está localizado o arquivo pom.xml e execute o comando: mvn spring-boot:run.
 - Com a aplicação rodando acesse: http://localhost:9000/swagger-ui/index.html
 
+### Modelagem ER
+![modelo_er.png](modelo_er.png)
+![img.png](img.png)
