@@ -18,5 +18,4 @@ public class Associado {
 
     @Column(name = "data_create", nullable = false)
     private Timestamp dataCreate = new Timestamp(System.currentTimeMillis());
-
 }
