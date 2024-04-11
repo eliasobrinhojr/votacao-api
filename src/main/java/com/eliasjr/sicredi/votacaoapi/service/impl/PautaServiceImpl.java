@@ -7,9 +7,11 @@ import com.eliasjr.sicredi.votacaoapi.entity.Pauta;
 import com.eliasjr.sicredi.votacaoapi.exception.ValidationsExceptions;
 import com.eliasjr.sicredi.votacaoapi.repository.PautaRepository;
 import com.eliasjr.sicredi.votacaoapi.service.PautaService;
+import com.eliasjr.sicredi.votacaoapi.service.producer.TopicProducer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +24,12 @@ public class PautaServiceImpl implements PautaService {
 
     private final PautaRepository pautaRepository;
     private final ObjectMapper objectMapper;
+    private final TopicProducer topicProducer;
 
     @Override
-    public void create(PautaRequest pautaDTO) {
+    public Pauta create(PautaRequest pautaDTO) {
         log.info("Criando nova pauta = {}", pautaDTO.getTitulo());
-        pautaRepository.saveAndFlush(objectMapper.convertValue(pautaDTO, Pauta.class));
+        return pautaRepository.saveAndFlush(objectMapper.convertValue(pautaDTO, Pauta.class));
     }
 
     @Override
@@ -53,9 +56,7 @@ public class PautaServiceImpl implements PautaService {
         pauta.setResultado(pros > contras ? "SIM" : "NÃO");
         Pauta pautaAtualizada = pautaRepository.save(pauta);
 
-        // TODO postar na fila
-
-        return PautaContabilizacaoResponse.builder()
+        PautaContabilizacaoResponse pautaContabilizacaoResponse = PautaContabilizacaoResponse.builder()
                 .id(pautaAtualizada.getId())
                 .titulo(pautaAtualizada.getTitulo())
                 .descricao(pautaAtualizada.getDescricao())
@@ -63,5 +64,16 @@ public class PautaServiceImpl implements PautaService {
                 .pros(pros)
                 .contras(contras)
                 .build();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            String json = mapper.writeValueAsString(pautaContabilizacaoResponse);
+            topicProducer.send(json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pautaContabilizacaoResponse;
     }
 }

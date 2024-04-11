@@ -39,7 +39,6 @@ public class VotoServiceImpl implements VotoService {
         }
 
         if (!voto.getSessao().isActiveSession()) {
-            // TODO enviar msg p fila
             throw new ValidationsExceptions("Votacao foi encerrada.");
         }
 

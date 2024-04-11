@@ -1,3 +1,5 @@
+server:
+  port: 9000
 spring:
   application:
     name: votacao-api
@@ -10,5 +12,18 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL8Dialect
+  kafka:
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      group-id: group_id
 session:
   duration: 60
+topic:
+  name:
+    producer: resultado_votacao
+auto:
+  create:
+    topics:
+      enable: true
