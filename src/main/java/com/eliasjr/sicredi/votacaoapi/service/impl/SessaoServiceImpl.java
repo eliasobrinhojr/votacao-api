@@ -39,7 +39,7 @@ public class SessaoServiceImpl implements SessaoService {
         log.info("Cadastro Nova Sessao Para Pauta ID = {}", pautaEntity.getId());
 
         sessaoRepository.saveAndFlush(Sessao.builder()
-                .duration(Objects.isNull(sessaoDTO.getDuracao()) ? SESSION_DURATION : sessaoDTO.getDuracao())
+                .duration(Objects.isNull(sessaoDTO.getDuracao()) || sessaoDTO.getDuracao() == 0 ? SESSION_DURATION : sessaoDTO.getDuracao())
                 .dataCreate(new Timestamp(System.currentTimeMillis()))
                 .pauta(pautaEntity).build());
     }
@@ -54,7 +54,7 @@ public class SessaoServiceImpl implements SessaoService {
 
     @Override
     public Sessao findByIdPauta(Long id) {
-        
+
         log.info("Busca Sessao Pauta ID = {}", id);
 
         return sessaoRepository.findByIdPauta(id).orElseThrow(
