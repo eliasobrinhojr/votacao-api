@@ -4,12 +4,13 @@ import com.eliasjr.sicredi.votacaoapi.controller.request.SessaoRequest;
 import com.eliasjr.sicredi.votacaoapi.controller.response.SessaoResponse;
 import com.eliasjr.sicredi.votacaoapi.entity.Pauta;
 import com.eliasjr.sicredi.votacaoapi.entity.Sessao;
-import com.eliasjr.sicredi.votacaoapi.exception.ValidationsGenericExceptions;
+import com.eliasjr.sicredi.votacaoapi.exception.ValidationsExceptions;
 import com.eliasjr.sicredi.votacaoapi.repository.SessaoRepository;
 import com.eliasjr.sicredi.votacaoapi.service.PautaService;
 import com.eliasjr.sicredi.votacaoapi.service.SessaoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class SessaoServiceImpl implements SessaoService {
 
@@ -31,7 +33,10 @@ public class SessaoServiceImpl implements SessaoService {
 
     @Override
     public void create(SessaoRequest sessaoDTO) {
+
         Pauta pautaEntity = pautaService.findById(sessaoDTO.getPautaId());
+
+        log.info("Cadastro Nova Sessao Para Pauta ID = {}", pautaEntity.getId());
 
         sessaoRepository.saveAndFlush(Sessao.builder()
                 .duration(Objects.isNull(sessaoDTO.getDuracao()) ? SESSION_DURATION : sessaoDTO.getDuracao())
@@ -41,14 +46,19 @@ public class SessaoServiceImpl implements SessaoService {
 
     @Override
     public Sessao findById(Long id) {
+        log.info("Busca Sessao ID = {}", id);
+
         return sessaoRepository.findById(id).orElseThrow(
-                () -> new ValidationsGenericExceptions("Sessão não encontrada."));
+                () -> new ValidationsExceptions("Sessão nao encontrada."));
     }
 
     @Override
     public Sessao findByIdPauta(Long id) {
+        
+        log.info("Busca Sessao Pauta ID = {}", id);
+
         return sessaoRepository.findByIdPauta(id).orElseThrow(
-                () -> new ValidationsGenericExceptions("Sessão não encontrada."));
+                () -> new ValidationsExceptions("Sessão nao encontrada."));
     }
 
     @Override

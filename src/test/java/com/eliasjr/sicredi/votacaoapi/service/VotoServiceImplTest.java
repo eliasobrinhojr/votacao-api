@@ -6,7 +6,7 @@ import com.eliasjr.sicredi.votacaoapi.entity.Associado;
 import com.eliasjr.sicredi.votacaoapi.entity.Pauta;
 import com.eliasjr.sicredi.votacaoapi.entity.Sessao;
 import com.eliasjr.sicredi.votacaoapi.entity.Voto;
-import com.eliasjr.sicredi.votacaoapi.exception.ValidationsGenericExceptions;
+import com.eliasjr.sicredi.votacaoapi.exception.ValidationsExceptions;
 import com.eliasjr.sicredi.votacaoapi.mapper.AssociadoMapper;
 import com.eliasjr.sicredi.votacaoapi.mapper.SessaoMapper;
 import com.eliasjr.sicredi.votacaoapi.mapper.VotoMapper;
@@ -82,7 +82,7 @@ public class VotoServiceImplTest {
         when(sessaoService.findById(novoVoto.getSessaoId())).thenReturn(sessao);
         when(votoRepository.findBySessaoAndCpf(anyLong(), anyString())).thenReturn(Optional.of(voto));
 
-        Exception exception = assertThrows(ValidationsGenericExceptions.class, () -> {
+        Exception exception = assertThrows(ValidationsExceptions.class, () -> {
             votoService.create(novoVoto);
         });
 
@@ -102,7 +102,7 @@ public class VotoServiceImplTest {
         when(sessaoService.findById(novoVoto.getSessaoId())).thenReturn(sessao);
         when(votoRepository.findBySessaoAndCpf(anyLong(), anyString())).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(ValidationsGenericExceptions.class, () -> {
+        Exception exception = assertThrows(ValidationsExceptions.class, () -> {
             votoService.create(novoVoto);
         });
 
