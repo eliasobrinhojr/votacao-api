@@ -86,7 +86,7 @@ public class VotoServiceImplTest {
             votoService.create(novoVoto);
         });
 
-        assertEquals("Associado já cadastrado na sessão.", exception.getMessage());
+        assertEquals("CPF ja realizou voto na sessao.", exception.getMessage());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class VotoServiceImplTest {
             votoService.create(novoVoto);
         });
 
-        assertEquals("Votação foi encerrada.", exception.getMessage());
+        assertEquals("Votacao foi encerrada.", exception.getMessage());
     }
 
     @Test

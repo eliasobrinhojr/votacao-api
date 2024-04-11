@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PautaService {
 
-    void create(PautaRequest decisaoDTO);
+    Pauta create(PautaRequest decisaoDTO);
 
     Pauta findById(Long id);
 

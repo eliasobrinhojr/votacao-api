@@ -31,7 +31,6 @@ public class AssociadoServiceImpl implements AssociadoService {
         }
 
         // TODO chamada p outro service via feign para validar cpf valido
-
         associadoRepository.saveAndFlush(objectMapper.convertValue(associateDTO, Associado.class));
     }
 
