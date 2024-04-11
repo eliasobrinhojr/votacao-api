@@ -17,8 +17,8 @@ public class Voto {
 
     private Boolean voto;
 
-    @Column(name = "data_create", nullable = false, insertable = false, updatable = false)
-    private Timestamp dataCreate;
+    @Column(name = "data_create", nullable = false)
+    private Timestamp dataCreate = new Timestamp(System.currentTimeMillis());
 
     @ManyToOne
     @JoinColumn(name = "associado_id", referencedColumnName = "id")

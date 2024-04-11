@@ -16,7 +16,7 @@ public class Associado {
     private String nome;
     private String cpf;
 
-    @Column(name = "data_create", nullable = false, insertable = false, updatable = false)
-    private Timestamp dataCreate;
+    @Column(name = "data_create", nullable = false)
+    private Timestamp dataCreate = new Timestamp(System.currentTimeMillis());
 
 }
