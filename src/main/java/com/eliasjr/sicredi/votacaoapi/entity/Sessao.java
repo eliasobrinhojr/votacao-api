@@ -29,7 +29,7 @@ public class Sessao {
     private Long id;
     private Long duration;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "data_create", nullable = false, insertable = false, updatable = false)
     private Timestamp dataCreate;
 
     @ManyToOne()

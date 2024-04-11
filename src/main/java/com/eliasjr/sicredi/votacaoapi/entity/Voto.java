@@ -17,7 +17,7 @@ public class Voto {
 
     private Boolean voto;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "data_create", nullable = false, insertable = false, updatable = false)
     private Timestamp dataCreate;
 
     @ManyToOne

@@ -17,7 +17,7 @@ public class Pauta {
     private String descricao;
     private String resultado;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "data_create", nullable = false, insertable = false, updatable = false)
     private Timestamp dataCreate;
 
 }
