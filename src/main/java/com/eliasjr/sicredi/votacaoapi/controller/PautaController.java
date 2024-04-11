@@ -3,6 +3,7 @@ package com.eliasjr.sicredi.votacaoapi.controller;
 import com.eliasjr.sicredi.votacaoapi.controller.request.PautaRequest;
 import com.eliasjr.sicredi.votacaoapi.controller.response.PautaContabilizacaoResponse;
 import com.eliasjr.sicredi.votacaoapi.controller.response.PautaResponse;
+import com.eliasjr.sicredi.votacaoapi.entity.Pauta;
 import com.eliasjr.sicredi.votacaoapi.service.PautaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,7 @@ public class PautaController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody PautaRequest pautaDTO) {
-            pautaService.create(pautaDTO);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pautaService.create(pautaDTO));
     }
 
     @GetMapping("/list")
