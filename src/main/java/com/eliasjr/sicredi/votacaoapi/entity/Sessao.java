@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Builder
-@Table(name = "sessao", schema = "cooperativa")
+@Table(name = "sessao")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Sessao {

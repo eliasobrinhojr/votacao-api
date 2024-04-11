@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -21,37 +22,38 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SessaoServiceImpl implements SessaoService {
 
-    private final SessaoRepository sessoesRepository;
+    private final SessaoRepository sessaoRepository;
     private final PautaService pautaService;
     private final ObjectMapper objectMapper;
 
     @Value("${session.duration}")
-    private Long SESSAO_DURACAO;
+    private Long SESSION_DURATION;
 
     @Override
     public void create(SessaoRequest sessaoDTO) {
         Pauta pautaEntity = pautaService.findById(sessaoDTO.getPautaId());
 
-        sessoesRepository.saveAndFlush(Sessao.builder()
-                .duration(Objects.isNull(sessaoDTO.getDuracao()) ? SESSAO_DURACAO : sessaoDTO.getDuracao())
+        sessaoRepository.saveAndFlush(Sessao.builder()
+                .duration(Objects.isNull(sessaoDTO.getDuracao()) ? SESSION_DURATION : sessaoDTO.getDuracao())
+                .dataCreate(new Timestamp(System.currentTimeMillis()))
                 .pauta(pautaEntity).build());
     }
 
     @Override
     public Sessao findById(Long id) {
-        return sessoesRepository.findById(id).orElseThrow(
+        return sessaoRepository.findById(id).orElseThrow(
                 () -> new ValidationsGenericExceptions("Sessão não encontrada."));
     }
 
     @Override
     public Sessao findByIdPauta(Long id) {
-        return sessoesRepository.findByIdPauta(id).orElseThrow(
+        return sessaoRepository.findByIdPauta(id).orElseThrow(
                 () -> new ValidationsGenericExceptions("Sessão não encontrada."));
     }
 
     @Override
     public List<SessaoResponse> list() {
-        return sessoesRepository.findAll()
+        return sessaoRepository.findAll()
                 .stream()
                 .map(sessao -> objectMapper.convertValue(sessao, SessaoResponse.class)).collect(Collectors.toList());
     }

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
-@Table(name = "associado", schema = "cooperativa")
+@Table(name = "associado")
 public class Associado {
 
     @Id
